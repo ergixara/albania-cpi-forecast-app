@@ -490,15 +490,26 @@ with st.sidebar:
         </div>
     </div>""", unsafe_allow_html=True)
 
-    uploaded = st.file_uploader("Upload CPI Excel (.xlsx)", type=["xlsx","xls"])
+    # Add info about default data
+    st.markdown("""
+    <div style='background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.25);
+    border-radius:8px;padding:.8rem;margin-bottom:1rem;font-size:.8rem;color:#c8d6f0;'>
+    📊 <strong>Default dataset loaded</strong><br>
+    Using INSTAT Albania CPI data. Upload your own file below to override.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    uploaded = st.file_uploader("Upload your CPI Excel (.xlsx)", type=["xlsx","xls"])
+    
     st.markdown("<hr style='border-color:#1a2340;margin:.8rem 0'>", unsafe_allow_html=True)
     train_ratio      = st.slider("Train ratio", .5, .9, .8, .05)
     forecast_periods = st.slider("Forecast horizon (months)", 12, 60, 36, 6)
     show_ci          = st.toggle("Show confidence intervals", value=True)
     auto_order       = st.toggle("Auto-select SARIMA order", value=False)
     st.markdown("<hr style='border-color:#1a2340;margin:.8rem 0'>", unsafe_allow_html=True)
-    run_btn = st.button("▶  Train All Models", use_container_width=True,
-                        type="primary")
+    
+    # THE BUTTON MUST BE HERE
+    run_btn = st.button("▶  Train All Models", use_container_width=True, type="primary")
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HERO
