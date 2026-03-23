@@ -491,13 +491,7 @@ with st.sidebar:
     </div>""", unsafe_allow_html=True)
 
     # Add info about default data
-    st.markdown("""
-    <div style='background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.25);
-    border-radius:8px;padding:.8rem;margin-bottom:1rem;font-size:.8rem;color:#c8d6f0;'>
-    📊 <strong>Default dataset loaded</strong><br>
-    Using INSTAT Albania CPI data. Upload your own file below to override.
-    </div>
-    """, unsafe_allow_html=True)
+    st.info("📊 **Default dataset loaded**  \nUsing INSTAT Albania CPI data. Upload your own file below to override.")
     
     uploaded = st.file_uploader("Upload your CPI Excel (.xlsx)", type=["xlsx","xls"])
     
