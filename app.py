@@ -184,7 +184,10 @@ class BoostedSARIMA:
 
     def predict(self, df_future):
         sp = self.sarima.predict(len(df_future))
-        f = self._feats(df_future).fillna(0)
+        f = self._feats(df_future)
+        for col in ["lag1","lag2","rm3"]:
+            if col in f.columns:
+                f[col] = f[col].fillna(pd.Series(sp).mean())
         return sp + self.xgb.predict(f[self.feature_cols])
 
     def feature_importances(self):
@@ -386,8 +389,9 @@ def chart_feature_importance(importances, model_name):
 
 def chart_residuals(test_df, y_true, y_pred, model_name, color):
     resid = np.array(y_true)-np.array(y_pred)
-    acf_v = acf(resid,nlags=20,fft=True)
-    pacf_v = pacf(resid,nlags=20)
+    max_lags = min(20, len(resid)//2 - 1)
+    acf_v = acf(resid, nlags=max_lags, fft=True)
+    pacf_v = pacf(resid, nlags=max_lags)
     fig = make_subplots(rows=1,cols=3,subplot_titles=["Residuals","ACF","PACF"],
                         horizontal_spacing=.1)
     fig.add_trace(go.Scatter(x=list(range(len(resid))),y=resid,mode="lines+markers",
@@ -490,9 +494,7 @@ with st.sidebar:
         </div>
     </div>""", unsafe_allow_html=True)
 
-    # Add info about default data
-    st.info("📊 **Default dataset loaded**  \nUsing INSTAT Albania CPI data. Upload your own file below to override.")
-    
+    # Add info about default data    
     uploaded = st.file_uploader("Upload your CPI Excel (.xlsx)", type=["xlsx","xls"])
     
     st.markdown("<hr style='border-color:#1a2340;margin:.8rem 0'>", unsafe_allow_html=True)
