@@ -77,7 +77,22 @@ section[data-testid="stSidebar"] h3 { color: #ffffff !important; }
     padding: .9rem 1.1rem; border-radius: 0 8px 8px 0;
     font-size: .85rem; margin: .8rem 0; color: #4a2800;
 }
-#MainMenu, footer, header { visibility: hidden; }
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+header { visibility: hidden; }
+            
+[data-testid="collapsedControl"] {
+    display: block !important;
+    visibility: visible !important;
+    color: white !important;
+    background: #1a2340 !important;
+    border-radius: 0 8px 8px 0 !important;
+}
+button[kind="header"] {
+    color: white !important;
+    visibility: visible !important;
+}
+
 .block-container { padding-top: 1.5rem; padding-bottom: 3rem; }
 </style>
 """, unsafe_allow_html=True)
