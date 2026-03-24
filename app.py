@@ -28,7 +28,8 @@ import io
 np.random.seed(42)
 
 # ── Page config ───────────────────────────────────────────────────────────────
-st.set_page_config(page_title="Albania CPI Forecaster", page_icon="📈", layout="wide")
+st.set_page_config(page_title="Albania CPI Forecaster", page_icon="📈", 
+                   layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
 <style>
